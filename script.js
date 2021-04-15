@@ -56,19 +56,19 @@ if(firstNumber == 0){
 }
 switch(symbol) {
   case '+': 
-    result = ( Number(secondNumber) + Number(firstNumber) ).toString()
+    display.innerHTML = ( Number(secondNumber) + Number(firstNumber) ).toString()
     break
   case '-':
-    result = ( Number(secondNumber) - Number(firstNumber) ).toString()
+    display.innerHTML = ( Number(secondNumber) - Number(firstNumber) ).toString()
     break
   case '*':
-    result = ( Number(secondNumber) * Number(firstNumber) ).toString()
+    display.innerHTML = ( Number(secondNumber) * Number(firstNumber) ).toString()
     break
   case '/':
-  result = ( Number(secondNumber) / Number(firstNumber) ).toString()
+  display.innerHTML = ( Number(secondNumber) / Number(firstNumber) ).toString()
     break
   case '%':
-  result = ( Number(secondNumber) / Number(firstNumber) ).toString()
+  display.innerHTML = ( Number(secondNumber) / Number(firstNumber) ).toString()
     break
 }
 
