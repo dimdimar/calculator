@@ -85,7 +85,6 @@ symbol = ""
 
 function decimals(){
   afterDecimals = true
-  display.innerHTML = `${firstNumber}.`
 }
 
 function plusMinus (){
