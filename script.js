@@ -5,19 +5,17 @@ var secondNumber = 0;
 var symbol ='';
 var previousSymbol;
 var afterDecimals = false;
-var denominator = 10
+var displayNotADot = true
 
 function getNumber(value) {
-  if (afterDecimals == true && (Number(display.innerHTML) + value == 0 || Number(display.innerHTML) + value == NaN)){
-    denominator = denominator*10
-    display.innerHTML += value 
+  if (afterDecimals){
+    if(Number(display.innerHTML + value) !== parseInt(display.innerHTML + value) && value !== 0){
+      firstNumber = display.innerHTML + value
+      display.innerHTML += value
+      afterDecimals = false; 
+    }else{display.innerHTML += value}
   }else {  
-    if(afterDecimals && Number(display.innerHTML) == parseInt(display.innerHTML)){
-      firstNumber = firstNumber + (value/denominator)
-      display.innerHTML = firstNumber.toString()
-      denominator = 10
-      afterDecimals = false
-    }else{
+      if (Number(display.innerHTML + value) === parseInt(display.innerHTML + value)) displayNotADot = true
       if(display.innerHTML == "0" || clearDisplay) {
           display.innerHTML = value.toString()
           firstNumber = Number(value)
@@ -27,13 +25,16 @@ function getNumber(value) {
           display.innerHTML += value.toString()
           firstNumber = Number(display.innerHTML)
       }
+    
     }
-  }
-console.log(firstNumber)
+    console.log(firstNumber)
 console.log(secondNumber)
-}
+  }
+
+
 
 function getSymbol(value) {
+  displayNotADot = true;
 if (symbol !== ""){
   calculate()
   clearDisplay = true;
@@ -55,19 +56,19 @@ if(firstNumber == 0){
 }
 switch(symbol) {
   case '+': 
-    display.innerHTML = ( secondNumber + firstNumber ).toString()
+    result = ( Number(secondNumber) + Number(firstNumber) ).toString()
     break
   case '-':
-    display.innerHTML = ( secondNumber - firstNumber ).toString()
+    result = ( Number(secondNumber) - Number(firstNumber) ).toString()
     break
   case '*':
-    display.innerHTML = ( secondNumber * firstNumber ).toString()
+    result = ( Number(secondNumber) * Number(firstNumber) ).toString()
     break
   case '/':
-  display.innerHTML = ( secondNumber / firstNumber ).toString()
+  result = ( Number(secondNumber) / Number(firstNumber) ).toString()
     break
   case '%':
-  display.innerHTML = ( secondNumber / firstNumber ).toString()
+  result = ( Number(secondNumber) / Number(firstNumber) ).toString()
     break
 }
 
@@ -81,10 +82,17 @@ firstNumber = 0
 secondNumber = 0
 display.innerHTML= '0'
 symbol = ""
+displayNotADot = true
+afterDecimals = false;
+previousSymbol = symbol;
 }
 
 function decimals(){
-  afterDecimals = true
+  if(displayNotADot){
+    afterDecimals = true
+    display.innerHTML = `${firstNumber}.`
+    displayNotADot = false
+  }
 }
 
 function plusMinus (){
