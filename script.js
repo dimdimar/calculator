@@ -4,6 +4,7 @@ var firstNumber = 0;
 var secondNumber = 0;
 var symbol ='';
 var previousSymbol;
+var lastPressedNotSymbol = false ;
 var afterDecimals = false;
 var displayNotADot = true
 
@@ -12,7 +13,8 @@ function getNumber(value) {
     if(Number(display.innerHTML + value) !== parseInt(display.innerHTML + value) && value !== 0){
       firstNumber = display.innerHTML + value
       display.innerHTML += value
-      afterDecimals = false; 
+      afterDecimals = false;
+      lastPressedNotSymbol = true 
     }else{display.innerHTML += value}
   }else {  
       if (Number(display.innerHTML + value) === parseInt(display.innerHTML + value)) displayNotADot = true
@@ -20,10 +22,12 @@ function getNumber(value) {
           display.innerHTML = value.toString()
           firstNumber = Number(value)
           clearDisplay = false
+          lastPressedNotSymbol = true
         } 
         else {
           display.innerHTML += value.toString()
           firstNumber = Number(display.innerHTML)
+          lastPressedNotSymbol = true
       }
     
     }
@@ -34,18 +38,19 @@ console.log(secondNumber)
 
 
 function getSymbol(value) {
-  displayNotADot = true;
+  if (lastPressedNotSymbol){
 if (symbol !== ""){
   calculate()
   clearDisplay = true;
-}
+}}
   symbol = value
   previousSymbol = value
   console.log(symbol)
   secondNumber = Number(display.innerHTML)
   firstNumber = 0
   clearDisplay = true;
-
+  lastPressedNotSymbol = false
+  displayNotADot = true;
 
 }
 
@@ -100,9 +105,11 @@ function plusMinus (){
   if ( x> 0){
     x= x - x*2
     display.innerHTML = x.toString()
+    firstNumber = display.innerHTML
   }else if (x < 0 ){
     x= x + Math.abs(x)*2
     display.innerHTML = x.toString()
+    firstNumber = display.innerHTML
   }else{
     display.innerHTML = "0";
   }
